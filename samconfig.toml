@@ -1,0 +1,10 @@
+version = 0.1
+[default]
+[default.deploy]
+[default.deploy.parameters]
+stack_name = "sb-test-cf"
+s3_bucket = "aws-sam-cli-managed-default-samclisourcebucket-3988tk23u09m"
+s3_prefix = "sb"
+region = "ap-southeast-2"
+capabilities = "CAPABILITY_NAMED_IAM"
+image_repositories = []
