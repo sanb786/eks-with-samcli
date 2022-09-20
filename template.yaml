@@ -24,8 +24,28 @@ Resources:
       Location: vpc-template.yaml
     Metadata:
       SamResourceId: SBEKSVpc
+  SBEKSCluster:
+    Type: AWS::EKS::Cluster
+    Properties:
+      Name: SBEKSC
+      Version: "1.20"
+      RoleArn: !GetAtt EKSRole.Arn
+      ResourcesVpcConfig:
+        SecurityGroupIds:
+          - Fn::ImportValue: SecurityGroups
+        SubnetIds: !Split 
+          - ","
+          - Fn::ImportValue:
+              SubnetIds          
+        EndpointPublicAccess: false
+        EndpointPrivateAccess: true
+      Logging:
+        ClusterLogging:
+          EnabledTypes:
+            - Type: api
+            - Type: audit
 
 Outputs:
-  Roles:
-    Description: EKS Role Arn  
-    Value: !GetAtt MyTestCF.Arn
+  EksRole:
+    Description: EKS Role Arn
+    Value: !GetAtt EKSRole.Arn
